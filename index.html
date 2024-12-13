@@ -4,144 +4,70 @@
 
   <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <title>Gavin Mitchell</title>
+      <title>gavinmitchell228</title>
       <script type="text/javascript" src="js/processing.js"></script>
   </head>
   
   <body>
     <h1>Flappy Bird</h1>
-    <p>Processing demo</p>
+    <p>Gavin Mitchell</p>
     
     <script type="text/processing">
+    
+      Ball[] ball;
 
- import processing.sound.*;
-SoundFile sound1,sound2;
-PImage bird,bird1,bg,bg2,p1,p2;
-int bgx,c,flap,count,high,same;
-int[] px,py;
-float y,Vy;
-boolean gameState;
-void setup(){
-  
-  count=0;
-  sound1 = new SoundFile(this, "wings.mp3");
-  sound2 = new SoundFile(this, "bleh.mp3");
-  gameState=true;
-  size(1000,1000);
-  Vy=0;
-  flap=0;
-  bird=loadImage("bird.png");
-  bird1=loadImage("bird1.png");
-  bg=loadImage("forbg2.png");
-  bg2=loadImage("forbg3.png");
-  p1=loadImage("stump1.png");
-  p2=loadImage("vine.png");
-  px = new int[3];
-  py = new int[3];
-  y=height/2;
-  for(int i=0;i<3;i++){
-    px[i]=width+width/3*i;
-    py[i]=int(random(200,height-200));
-  }
-}
-void draw(){
- if (gameState){
- back();
- birdy();
- flap++;
-  for(int i=0;i<3;i++){
- px[i]-=5;
-  }
-  
- counter();
- checkCol();
-   pipes();
-   
-  for(int i=0;i<3;i++){
-   if (px[i]<-10){
-   px[i]=width+50;
-   py[i]=int(random(200,height-200));
- }}
- }
- else{
- textSize(100);
- fill(200,0,0);
- text("push any key ",150,400);
- text("to restart",200,500);
- }
-}
+      void setup(){
+        size(700, 600);
+        frameRate(100);
+        ball = new Ball[100];
+        for(int i = 0; i < ball.length; i++){
+            ball[i] = new Ball();
+        }
+      }
 
-void counter(){
-  c=50;
-  for(int i=0;i<3;i++){
-   if (px[i]==50||px[i]==49||px[i]==48||px[i]==47||px[i]==46){
-     count++;
-  }}
-  if (count>high){
-    high=count;
-  }
-  textSize(50);
-  text("current score",0,60);
-text(count, 40, 120);
-  text("high score",750,60);
-text(high, 840, 120);
-}
-void pipes(){
-  
-  for(int i=0;i<3;i++){
-  image(p1,px[i]-32.5,py[i]+100,75,height-py[i]);
-  image(p2,px[i]-25,0,50,py[i]-100);
-  }
-}
-void checkCol(){
-  for(int i=0;i<3;i++){
-  
-  if(px[i] < 55 + bird.width && px[i] > 45 && y - py[i] > 50){
-      gameState = false;
-      sound2.play();
-  }
-if(px[i] < 55 + bird.width && px[i] > 45 && py[i] - y > 110){
-      gameState = false;
-    sound2.play();}
-}}
-void back(){
-  
-  image(bg,bgx,0,width,height);
-  image(bg2,bgx+width,0,width,height);
-  image(bg,bgx+(2*width),0,width,height);
-  
-  bgx--;
-  if (bgx<-width*2){
-    bgx=0;
-  }
-  bgx-=2;
-  if (bgx<-width*2){
-    bgx=0;
-  }
-}
-void birdy(){
- if (flap<=1){image(bird1,50,y-150);}
- if (flap>1){image(bird,50,y);}
-  
-  if (y>height-bird.height){
-  gameState=false;
-  sound2.play();
-  }
-  
-  y+=Vy;
-  Vy++;
-}
-void mousePressed(){
-  if(gameState){
-    Vy-=15;
-    sound1.play();
-    flap=0;
-}}
-void keyPressed(){
-  if (gameState==false){
-    setup();
-  }
-}
+
+
+      void draw(){
+          background(155,0,0);
+            for(int i = 0; i < ball.length; i++){
+                ball[i].display();
+            }
+
+      }
+      class Ball{
+
+          float x;
+          float y;
+          float Vx;
+          float Vy;
+          float r,g,b,o;
+          float d;
+
+          Ball(){
+              x = random(width);
+              y = random(height);
+              Vx = random(-5,5);
+              Vy = random(-5,5);
+              r = random(255);
+              g = random(255);
+              b = random(255);
+              o = random(255);
+              d = random(30) + 15;
+          }
+
+          void display(){
+              fill(r,g,b,o);
+              ellipse(x,y,d,d);
+              x += Vx;
+              y += Vy;
+              if(x > width || x < 0){
+                  Vx *= -1;
+              }
+              if(y > height || y < 0){
+                  Vy *= -1;
+              }
+          }
+    }
 
 
     </script>
