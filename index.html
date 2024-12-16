@@ -14,8 +14,7 @@
     
     <script type="text/processing">
     
-//import processing.sound.*;
-//SoundFile sound1,sound2;
+
 PImage bird,bird1,bg,bg2,p1,p2;
 int bgx,c,flap,count,high,same;
 int[] px,py;
@@ -24,8 +23,6 @@ boolean gameState;
 void setup(){
   
   count=0;
- // sound1 = new SoundFile(this, "wings.mp3");
- // sound2 = new SoundFile(this, "bleh.mp3");
   gameState=true;
   size(1000,1000);
   Vy=0;
@@ -98,11 +95,9 @@ void checkCol(){
   
   if(px[i] < 55 + bird.width && px[i] > 45 && y - py[i] > 50){
       gameState = false;
-     // sound2.play();
   }
 if(px[i] < 55 + bird.width && px[i] > 45 && py[i] - y > 110){
       gameState = false;
-   // sound2.play();}
 }}
 void back(){
   
@@ -125,7 +120,6 @@ void birdy(){
   
   if (y>height-bird.height){
   gameState=false;
- // sound2.play();
   }
   
   y+=Vy;
@@ -134,7 +128,6 @@ void birdy(){
 void mousePressed(){
   if(gameState){
     Vy-=15;
-    //sound1.play();
     flap=0;
 }}
 void keyPressed(){
