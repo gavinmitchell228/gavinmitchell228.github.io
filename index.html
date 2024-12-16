@@ -48,7 +48,7 @@ if (gameState){
  birdy();
  flap++;
   for(int i=0;i<3;i++){
- px[i]-=2;
+ px[i]-=3;
   }
   
  counter();
@@ -124,7 +124,7 @@ void birdy(){
   }
   
   y+=Vy;
-  Vy++;
+  Vy+=0.5;
 }
 void mousePressed(){
   if(gameState){
